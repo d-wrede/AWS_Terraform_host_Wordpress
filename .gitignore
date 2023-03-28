@@ -1,0 +1,5 @@
+.DS_Store
+Task1.pdf
+.terraform/
+.terraform.lock.hcl
+.terraform
