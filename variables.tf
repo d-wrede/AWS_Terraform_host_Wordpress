@@ -1,6 +1,6 @@
 variable "vpc_name" {
   description = "Name for the VPC"
-  default     = "My VPC"
+  default     = "module_VPC"
 }
 
 variable "vpc_cidr" {
