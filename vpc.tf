@@ -1,27 +1,27 @@
 # Create a VPC
 resource "aws_vpc" "myvpc" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block = var.vpc_cidr
   tags = {
-    Name = "myvpc"
+    Name = var.vpc_name
   }
 }
 
 
-resource "aws_subnet" "public_subnet" {
+resource "aws_subnet" "public_subnet1" {
   vpc_id     = aws_vpc.myvpc.id
-  cidr_block = "10.0.1.0/24"
+  cidr_block = var.public_subnet1_cidr
 
   tags = {
-    Name = "Public subnet"
+    Name = var.public_subnet1_name
   }
 }
 
-resource "aws_subnet" "private_subnet" {
+resource "aws_subnet" "private_subnet1" {
   vpc_id     = aws_vpc.myvpc.id
-  cidr_block = "10.0.2.0/24"
+  cidr_block = var.private_subnet1_cidr
 
   tags = {
-    Name = "Private subnet"
+    Name = var.private_subnet1_name
   }
 }
 
@@ -29,23 +29,23 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.myvpc.id
 
   tags = {
-    Name = "Internet gateway"
+    Name = var.igw_name
   }
 }
 
 resource "aws_route_table" "public_route_table" {
   vpc_id = aws_vpc.myvpc.id
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block = var.cidr_all
     gateway_id = aws_internet_gateway.igw.id
   }
   tags = {
-    Name = "Public route table"
+    Name = var.public_route_table_name
   }
 }
 
 resource "aws_route_table_association" "public_subnet_association" {
-  subnet_id      = aws_subnet.public_subnet.id
+  subnet_id      = aws_subnet.public_subnet1.id
   route_table_id = aws_route_table.public_route_table.id
 }
 
@@ -55,22 +55,22 @@ resource "aws_eip" "nat_gateway" {
 
 resource "aws_nat_gateway" "nat_gateway" {
   allocation_id = aws_eip.nat_gateway.id
-  subnet_id     = aws_subnet.private_subnet.id
+  subnet_id     = aws_subnet.private_subnet1.id
   tags = {
-    "Name" = "NatGateway"
+    "Name" = var.nat_gateway_name
   }
 }
 
 resource "aws_route_table" "private_route_table" {
   vpc_id = aws_vpc.myvpc.id
   route {
-    cidr_block     = "0.0.0.0/0"
+    cidr_block     = var.cidr_all
     nat_gateway_id = aws_nat_gateway.nat_gateway.id
   }
 }
 
 resource "aws_route_table_association" "private_subnet_association" {
-  subnet_id      = aws_subnet.private_subnet.id
+  subnet_id      = aws_subnet.private_subnet1.id
   route_table_id = aws_route_table.private_route_table.id
 }
 
@@ -84,14 +84,14 @@ resource "aws_security_group" "allow_ssh" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.cidr_all]
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.cidr_all]
   }
 
   tags = {
