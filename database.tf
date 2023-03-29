@@ -10,9 +10,9 @@ resource "aws_db_subnet_group" "DBSubnetGroup" {
 resource "aws_rds_cluster" "RDSClusterAurora" {
   engine                  = "aurora-mysql"
   engine_version          = "5.7.mysql_aurora.2.11.1"
-  database_name           = "db"
-  master_username         = "admin"
-  master_password         = "mysecretpassword"
+  database_name           = "mydb"
+  master_username         = "root"
+  master_password         = "password"
   skip_final_snapshot     = true
   backup_retention_period = 5
   preferred_backup_window = "07:00-09:00"

@@ -48,6 +48,7 @@ resource "aws_security_group" "AuroraSecurityGroup" {
     from_port        = 3306
     to_port          = 3306
     protocol         = "tcp"
+    security_groups  = [aws_security_group.webserver_sg.id]
     #security_group_id = aws_security_group.webserver_sg.id
   }
 
@@ -55,7 +56,7 @@ resource "aws_security_group" "AuroraSecurityGroup" {
     from_port        = 3306
     to_port          = 3306
     protocol         = "tcp"
-    #security_group_id = aws_security_group.webserver_sg.id
+    security_groups  = [aws_security_group.webserver_sg.id]
   }
 }
 

@@ -14,7 +14,7 @@ php-mbstring \
 php-mysqlnd \
 php-xml \
 php-xmlrpc
-MYSQL_ROOT_PASSWORD=pass
+MYSQL_ROOT_PASSWORD=password
 echo $MYSQL_ROOT_PASSWORD > $HOMEDIR/MYSQL_ROOT_PASSWORD
 sudo chown ec2-user $HOMEDIR/MYSQL_ROOT_PASSWORD
 echo Starting database service...
@@ -52,9 +52,9 @@ sudo systemctl start mariadb
 
 echo configuring wordpress
 echo $dbendpoint
-database_name=db
-master_username=admin
-master_password=mysecretpassword
+database_name=mydb
+master_username=root
+master_password=password
 sudo cp /home/ec2-user/wordpress/wp-config-sample.php /home/ec2-user/wordpress/wp-config.php
 sudo sed -i "s/database_name_here/$database_name/" /home/ec2-user/wordpress/wp-config.php
 sudo sed -i "s/username_here/$master_username/" /home/ec2-user/wordpress/wp-config.php
