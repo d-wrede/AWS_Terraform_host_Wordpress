@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 HOMEDIR=/home/ec2-user
 sudo yum update -y
 sudo amazon-linux-extras install lamp-mariadb10.2-php7.2 -y
@@ -38,26 +39,27 @@ sudo systemctl enable httpd
 echo installing wordpress and creating mysqluser
 wget https://wordpress.org/latest.tar.gz
 tar -xzf latest.tar.gz -C /home/ec2-user
-sudo systemctl start mariadb
-#provide AWS credentials
+
 mkdir /home/ec2-user/.aws
-touch /home/ec2-user/.aws/credentials
-cat << END > /home/ec2-user/.aws/credentials
-[default]
-aws_access_key_id=ASIAWVNGX3YRPKAFI6H7
-aws_secret_access_key=lrZIrMvTuRum7npLdlluafX1GyHO/KEH7MpHpS+g
-aws_session_token=FwoGZXIvYXdzEJT//////////wEaDKVjxQyHKkM0F6NPUiK8AfmDF9vFvfZ1Nlz+qovpcDSQ2Dfe+aI/0xnj+fefN6wGTd7JcCPBECGi5m393JbcLignciI8dyhv6rvZNL6HXMr8FP4lbl2LuUcGMoqfCAdsu5Z3a6H+xZcDrqpbdsVPrAdnQnC1/T+w58xHaCrNYNzmpfSBszKVpxrhzanJkZHeCJJ1YaETEOMUhI3XAA98ruSxkIn2WTFztusH2UYJJiF6HjetcdsHFuxaFgPLQW+h4yRshgok3iw8J5rWKO2nkKEGMi2NtV17wGOFDVk7XYaBI+4RO6NtneEuh/xVWYqW6MZGsSMZBbOXH2LxccGP+js=
-END
 touch /home/ec2-user/.aws/config
 cat << END > /home/ec2-user/.aws/config
 [default]
 region = us-west-2
 output = yaml
 END
-dbendpoint=$(aws rds describe-db-instances --db-instance-identifier db-aurora-instance --query "DBInstances[*].Endpoint.Address" --output text)
-filename='/var/www/html/wp-config.php'
-sudo sed -i 's/wordpressdb/db/g' $filename
-sudo sed -i 's/wordpressuser/admin/g' $filename
-sudo sed -i 's/pass/mysecretpassword/g' $filename
-sudo sed -i "s/localhost/$dbendpoint/g" $filename
+
+sudo systemctl start mariadb
+
+echo configuring wordpress
+echo $dbendpoint
+database_name=db
+master_username=admin
+master_password=mysecretpassword
+sudo cp /home/ec2-user/wordpress/wp-config-sample.php /home/ec2-user/wordpress/wp-config.php
+sudo sed -i "s/database_name_here/$database_name/" /home/ec2-user/wordpress/wp-config.php
+sudo sed -i "s/username_here/$master_username/" /home/ec2-user/wordpress/wp-config.php
+sudo sed -i "s/password_here/$master_password/" /home/ec2-user/wordpress/wp-config.php
+sudo sed -i "s/localhost/${dbendpoint}/" /home/ec2-user/wordpress/wp-config.php
+
+sudo cp -r /home/ec2-user/wordpress/* /var/www/html/
 sudo systemctl restart httpd

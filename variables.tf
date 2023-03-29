@@ -68,3 +68,9 @@ variable "nat_gateway_name" {
   description = "Name for the NAT gateway"
   default     = "NAT gateway"
 }
+
+locals {
+  vars = {
+    dbendpoint = aws_rds_cluster.RDSClusterAurora.endpoint
+  }
+}

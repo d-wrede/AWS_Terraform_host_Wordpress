@@ -6,10 +6,12 @@ resource "aws_instance" "first_instance" {
   key_name = "vockey"
   associate_public_ip_address = true
   # read user data from file
-  user_data = "${file("user_data.sh")}"
+  user_data = base64encode(templatefile("${path.module}/user_data.sh", local.vars))
+  #user_data = "${file("user_data.sh")}"
   tags = {
     Name = "My super instance"
   }
+  depends_on = [aws_rds_cluster_instance.DBAuroraInstance]
 }
 
 output "webserver_ip" {
