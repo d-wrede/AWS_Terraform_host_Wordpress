@@ -3,3 +3,5 @@ Task1.pdf
 .terraform/
 .terraform.lock.hcl
 .terraform
+terraform.tfstate.backup
+terraform.tfstate
