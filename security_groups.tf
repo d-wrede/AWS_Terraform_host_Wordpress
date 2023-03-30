@@ -59,9 +59,9 @@ resource "aws_security_group" "AuroraSecurityGroup" {
   }
 }
 
-resource "aws_security_group" "elb_sg" {
+resource "aws_security_group" "alb_sg" {
   name_prefix = var.name_prefix
-  description = "Security group for the ELB"
+  description = "Security group for the ALB"
   vpc_id      = var.vpc_id
 
   ingress {
@@ -79,6 +79,6 @@ resource "aws_security_group" "elb_sg" {
   }
 
   tags = {
-    Name = "elb_sg"
+    Name = "alb_sg"
   }
 }
