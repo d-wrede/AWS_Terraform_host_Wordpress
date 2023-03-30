@@ -35,7 +35,7 @@ resource "aws_security_group" "webserver_sg" {
   }
 
   tags = {
-    Name = "allow_ssh"
+    Name = "allow_webserver"
   }
 }
 
@@ -49,7 +49,6 @@ resource "aws_security_group" "AuroraSecurityGroup" {
     to_port          = 3306
     protocol         = "tcp"
     security_groups  = [aws_security_group.webserver_sg.id]
-    #security_group_id = aws_security_group.webserver_sg.id
   }
 
   egress {
