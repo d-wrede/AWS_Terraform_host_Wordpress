@@ -59,3 +59,26 @@ resource "aws_security_group" "AuroraSecurityGroup" {
   }
 }
 
+resource "aws_security_group" "elb_sg" {
+  name_prefix = var.name_prefix
+  description = "Security group for the ELB"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = var.cidr_all
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = var.cidr_all
+  }
+
+  tags = {
+    Name = "elb_sg"
+  }
+}
