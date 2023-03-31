@@ -2,12 +2,39 @@
 #                         Auto Scaling Group                               #
 ############################################################################
 
-# Launch Configuration
+# Launch Template (update)
+resource "aws_launch_template" "webserver_lt" {
+  name_prefix   = "webserver-lt"
+  image_id      = var.ami_id
+  key_name      = var.key_name
+  instance_type = var.instance_type
+  user_data     = base64encode(templatefile("${path.module}/user_data.sh", local.vars))
+
+  # block_device_mappings {
+  #   device_name = "/dev/xvda"
+
+  #   ebs {
+  #     volume_size           = 30
+  #     volume_type           = "gp2"
+  #     delete_on_termination = true
+  #   }
+  # }
+
+  # iam_instance_profile {
+  #   name = aws_iam_instance_profile.instance_profile.name
+  # }
+
+  vpc_security_group_ids = [aws_security_group.webserver_sg.id]
+  depends_on = [aws_rds_cluster_instance.DBAuroraInstance]
+}
+
+
+# Launch Configuration (deprecated)
 resource "aws_launch_configuration" "webserver_lc" {
   name_prefix = "webserver-lc"
   image_id    = var.ami_id
   instance_type = var.instance_type
-  key_name = var.key_name
+  #key_name = var.key_name
   user_data = base64encode(templatefile("${path.module}/user_data.sh", local.vars))
   security_groups = [aws_security_group.webserver_sg.id]
 }
@@ -16,7 +43,11 @@ resource "aws_launch_configuration" "webserver_lc" {
 # Auto Scaling Group
 resource "aws_autoscaling_group" "webserver_asg" {
   name                      = "webserver-asg"
-  launch_configuration      = aws_launch_configuration.webserver_lc.name
+  # launch_configuration      = aws_launch_configuration.webserver_lc.name
+  launch_template {
+    id      = aws_launch_template.webserver_lt.id
+    version = "$Latest"
+  }
   vpc_zone_identifier       = [module.vpc.public_subnets[0], module.vpc.public_subnets[1]]
   min_size                  = 2
   max_size                  = 5

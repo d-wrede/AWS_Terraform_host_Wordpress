@@ -13,7 +13,3 @@ resource "aws_instance" "primary_webserver_instance" {
   }
   depends_on = [aws_rds_cluster_instance.DBAuroraInstance]
 }
-
-output "webserver_ip" {
-  value = aws_instance.primary_webserver_instance.public_ip
-}
