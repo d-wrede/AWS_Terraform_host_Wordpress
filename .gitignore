@@ -6,3 +6,5 @@ Task1.pdf
 terraform.tfstate.backup
 terraform.tfstate
 *.png
+.terraform.tfstate.lock.info
+blast_radius_env/
