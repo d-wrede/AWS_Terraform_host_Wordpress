@@ -1,0 +1,85 @@
+[0m[1mdata.aws_availability_zones.aws_az: Reading...[0m[0m
+[0m[1mmodule.vpc.aws_vpc.this[0]: Refreshing state... [id=vpc-0c6ae115e7e03a279][0m
+[0m[1mdata.aws_availability_zones.aws_az: Read complete after 2s [id=us-west-2][0m
+[0m[1mmodule.vpc.aws_eip.nat[0]: Refreshing state... [id=eipalloc-0bb5d13dc81c72753][0m
+[0m[1mmodule.vpc.aws_route_table.public[0]: Refreshing state... [id=rtb-0a9a9eb6566ffdcf8][0m
+[0m[1mmodule.vpc.aws_route_table.private[0]: Refreshing state... [id=rtb-0a3dd2d81eced8516][0m
+[0m[1mmodule.vpc.aws_internet_gateway.this[0]: Refreshing state... [id=igw-05b2f3f221afa6abd][0m
+[0m[1mmodule.vpc.aws_subnet.private[1]: Refreshing state... [id=subnet-0b967bee4811cda8d][0m
+[0m[1mmodule.vpc.aws_subnet.private[0]: Refreshing state... [id=subnet-0486caf8a984c7784][0m
+[0m[1mmodule.vpc.aws_subnet.public[0]: Refreshing state... [id=subnet-0a016b4b5fca8f493][0m
+[0m[1maws_security_group.alb_sg: Refreshing state... [id=sg-054a369f7df00600a][0m
+[0m[1mmodule.vpc.aws_subnet.public[1]: Refreshing state... [id=subnet-03fc736c3e6e735de][0m
+[0m[1maws_security_group.webserver_sg: Refreshing state... [id=sg-0155eb90f8da4dcef][0m
+[0m[1mmodule.alb.aws_lb_target_group.main[0]: Refreshing state... [id=arn:aws:elasticloadbalancing:us-west-2:458300579362:targetgroup/tg-http/0b422c43d6238eb0][0m
+[0m[1mmodule.alb.aws_security_group.this[0]: Refreshing state... [id=sg-05cf200ba0e8011eb][0m
+[0m[1mmodule.vpc.aws_route.public_internet_gateway[0]: Refreshing state... [id=r-rtb-0a9a9eb6566ffdcf81080289494][0m
+[0m[1mmodule.vpc.aws_nat_gateway.this[0]: Refreshing state... [id=nat-00073ab1d1fe6929b][0m
+[0m[1mmodule.vpc.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-0548e78eac6190e0c][0m
+[0m[1mmodule.vpc.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-0f8fe0ef48adef6ca][0m
+[0m[1mmodule.vpc.aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-0f8ad8488e804e4de][0m
+[0m[1mmodule.vpc.aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-017840f86ef4c624d][0m
+[0m[1maws_db_subnet_group.DBSubnetGroup: Refreshing state... [id=db-subnet-group][0m
+[0m[1mmodule.alb.aws_lb.this[0]: Refreshing state... [id=arn:aws:elasticloadbalancing:us-west-2:458300579362:loadbalancer/app/alb-wordpress/66130da87fbb4e35][0m
+[0m[1maws_security_group.AuroraSecurityGroup: Refreshing state... [id=sg-09469447657d15e63][0m
+[0m[1mmodule.vpc.aws_route.private_nat_gateway[0]: Refreshing state... [id=r-rtb-0a3dd2d81eced85161080289494][0m
+[0m[1maws_rds_cluster.RDSClusterAurora: Refreshing state... [id=tf-20230331121359848100000004][0m
+[0m[1mmodule.alb.aws_lb_listener.frontend_http_tcp[0]: Refreshing state... [id=arn:aws:elasticloadbalancing:us-west-2:458300579362:listener/app/alb-wordpress/66130da87fbb4e35/fc13307508572336][0m
+[0m[1maws_launch_configuration.webserver_lc: Refreshing state... [id=webserver-lc20230331121533546200000006][0m
+[0m[1maws_rds_cluster_instance.DBAuroraInstance: Refreshing state... [id=db-aurora-instance][0m
+[0m[1maws_launch_template.webserver_lt: Refreshing state... [id=lt-08dcce77fa2392911][0m
+[0m[1maws_instance.primary_webserver_instance: Refreshing state... [id=i-0ca722d6ecf3a448d][0m
+[0m[1maws_autoscaling_group.webserver_asg: Refreshing state... [id=webserver-asg][0m
+[0m[1mdata.aws_instances.webserver_asg_instances: Reading...[0m[0m
+[0m[1mdata.aws_instances.webserver_asg_instances: Read complete after 0s [id=us-west-2][0m
+[0m[1maws_lb_target_group_attachment.predefined_instance: Refreshing state... [id=arn:aws:elasticloadbalancing:us-west-2:458300579362:targetgroup/tg-http/0b422c43d6238eb0-20230331122224349000000008][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [33m~[0m update in-place[0m
+[31m-[0m/[32m+[0m destroy and then create replacement[0m
+
+Terraform will perform the following actions:
+
+[1m  # aws_instance.primary_webserver_instance[0m will be updated in-place
+[0m  [33m~[0m[0m resource "aws_instance" "primary_webserver_instance" {
+        id                                   = "i-0ca722d6ecf3a448d"
+        tags                                 = {
+            "Name" = "Webserver"
+        }
+      [33m~[0m[0m user_data                            = "492db0f87dbceab7f38b2ac4a58946e507c19a41" [33m->[0m[0m "e466ef5de42ac91e228234d850192301d1b4ae53"
+        [90m# (32 unchanged attributes hidden)[0m[0m
+
+        [90m# (7 unchanged blocks hidden)[0m[0m
+    }
+
+[1m  # aws_launch_configuration.webserver_lc[0m must be [1m[31mreplaced[0m
+[0m[31m-[0m/[32m+[0m[0m resource "aws_launch_configuration" "webserver_lc" {
+      [33m~[0m[0m arn                              = "arn:aws:autoscaling:us-west-2:458300579362:launchConfiguration:957b07ea-11c4-4308-be69-efbd89f26f12:launchConfigurationName/webserver-lc20230331121533546200000006" -> (known after apply)
+      [33m~[0m[0m associate_public_ip_address      = false -> (known after apply)
+      [33m~[0m[0m ebs_optimized                    = false -> (known after apply)
+      [33m~[0m[0m id                               = "webserver-lc20230331121533546200000006" -> (known after apply)
+      [32m+[0m[0m key_name                         = (known after apply)
+      [33m~[0m[0m name                             = "webserver-lc20230331121533546200000006" -> (known after apply)
+      [33m~[0m[0m user_data                        = "492db0f87dbceab7f38b2ac4a58946e507c19a41" [33m->[0m[0m "e466ef5de42ac91e228234d850192301d1b4ae53" [31m# forces replacement[0m[0m
+      [31m-[0m[0m vpc_classic_link_security_groups = [] [90m-> null[0m[0m
+        [90m# (5 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # aws_launch_template.webserver_lt[0m will be updated in-place
+[0m  [33m~[0m[0m resource "aws_launch_template" "webserver_lt" {
+        id                      = "lt-08dcce77fa2392911"
+      [32m+[0m[0m key_name                = "vockey"
+      [33m~[0m[0m latest_version          = 1 -> (known after apply)
+        name                    = "webserver-lt20230331130022772100000001"
+        tags                    = {}
+      [33m~[0m[0m user_data               = "IyEvYmluL2Jhc2gKc2V0IC14CkhPTUVESVI9L2hvbWUvZWMyLXVzZXIKc3VkbyB5dW0gdXBkYXRlIC15CnN1ZG8gYW1hem9uLWxpbnV4LWV4dHJhcyBpbnN0YWxsIGxhbXAtbWFyaWFkYjEwLjItcGhwNy4yIC15CmVjaG8gSW5zdGFsbGluZyBwYWNrYWdlcy4uLgplY2hvIFBsZWFzZSBpZ25vcmUgbWVzc2FnZXMgcmVnYXJkaW5nIFNFTGludXguLi4Kc3VkbyB5dW0gaW5zdGFsbCAteSBcCmh0dHBkIFwKbWFyaWFkYi1zZXJ2ZXIgXApwaHAgXApwaHAtZ2QgXApwaHAtbWJzdHJpbmcgXApwaHAtbXlzcWxuZCBcCnBocC14bWwgXApwaHAteG1scnBjCk1ZU1FMX1JPT1RfUEFTU1dPUkQ9cGFzc3dvcmQKZWNobyAkTVlTUUxfUk9PVF9QQVNTV09SRCA+ICRIT01FRElSL01ZU1FMX1JPT1RfUEFTU1dPUkQKc3VkbyBjaG93biBlYzItdXNlciAkSE9NRURJUi9NWVNRTF9ST09UX1BBU1NXT1JECmVjaG8gU3RhcnRpbmcgZGF0YWJhc2Ugc2VydmljZS4uLgpzdWRvIHN5c3RlbWN0bCBzdGFydCBtYXJpYWRiCnN1ZG8gc3lzdGVtY3RsIGVuYWJsZSBtYXJpYWRiCmVjaG8gU2V0dGluZyB1cCBiYXNpYyBkYXRhYmFzZSBzZWN1cml0eS4uLgpteXNxbCAtdSByb290IDw8REJfU0VDClVQREFURSBteXNxbC51c2VyIFNFVCBQYXNzd29yZD1QQVNTV09SRCgnJE1ZU1FMX1JPT1RfUEFTU1dPUkQnKSBXSEVSRSBVc2VyPSdyb290JzsKREVMRVRFIEZST00gbXlzcWwudXNlciBXSEVSRSBVc2VyPSdyb290JyBBTkQgSG9zdCBOT1QgSU4gKCdsb2NhbGhvc3QnLCAnMTI3LjAuMC4xJywgJzo6MScpOwpERUxFVEUgRlJPTSBteXNxbC51c2VyIFdIRVJFIFVzZXI9Jyc7CkRST1AgREFUQUJBU0UgSUYgRVhJU1RTIHRlc3Q7CkZMVVNIIFBSSVZJTEVHRVM7CkRCX1NFQwplY2hvIENvbmZpZ3VyaW5nIEFwYWNoZS4uLgpzdWRvIHVzZXJtb2QgLWEgLUcgYXBhY2hlIGVjMi11c2VyCnN1ZG8gY2hvd24gLVIgZWMyLXVzZXI6YXBhY2hlIC92YXIvd3d3CnN1ZG8gY2htb2QgMjc3NSAvdmFyL3d3dyAmJiBmaW5kIC92YXIvd3d3IC10eXBlIGQgLWV4ZWMgY2htb2QgMjc3NSB7fSBcOwpmaW5kIC92YXIvd3d3IC10eXBlIGYgLWV4ZWMgY2htb2QgMDY2NCB7fSBcOwplY2hvIFN0YXJ0aW5nIEFwYWNoZS4uLgpzdWRvIHN5c3RlbWN0bCBzdGFydCBodHRwZApzdWRvIHN5c3RlbWN0bCBlbmFibGUgaHR0cGQKZWNobyBpbnN0YWxsaW5nIHdvcmRwcmVzcyBhbmQgY3JlYXRpbmcgbXlzcWx1c2VyCndnZXQgaHR0cHM6Ly93b3JkcHJlc3Mub3JnL2xhdGVzdC50YXIuZ3oKdGFyIC14emYgbGF0ZXN0LnRhci5neiAtQyAvaG9tZS9lYzItdXNlcgoKbWtkaXIgL2hvbWUvZWMyLXVzZXIvLmF3cwp0b3VjaCAvaG9tZS9lYzItdXNlci8uYXdzL2NvbmZpZwpjYXQgPDwgRU5EID4gL2hvbWUvZWMyLXVzZXIvLmF3cy9jb25maWcKW2RlZmF1bHRdCnJlZ2lvbiA9IHVzLXdlc3QtMgpvdXRwdXQgPSB5YW1sCkVORAoKc3VkbyBzeXN0ZW1jdGwgc3RhcnQgbWFyaWFkYgoKZWNobyBjb25maWd1cmluZyB3b3JkcHJlc3MKZWNobyAkZGJlbmRwb2ludApkYXRhYmFzZV9uYW1lPW15ZGIKbWFzdGVyX3VzZXJuYW1lPXJvb3QKbWFzdGVyX3Bhc3N3b3JkPXBhc3N3b3JkCnN1ZG8gY3AgL2hvbWUvZWMyLXVzZXIvd29yZHByZXNzL3dwLWNvbmZpZy1zYW1wbGUucGhwIC9ob21lL2VjMi11c2VyL3dvcmRwcmVzcy93cC1jb25maWcucGhwCnN1ZG8gc2VkIC1pICJzL2RhdGFiYXNlX25hbWVfaGVyZS8kZGF0YWJhc2VfbmFtZS8iIC9ob21lL2VjMi11c2VyL3dvcmRwcmVzcy93cC1jb25maWcucGhwCnN1ZG8gc2VkIC1pICJzL3VzZXJuYW1lX2hlcmUvJG1hc3Rlcl91c2VybmFtZS8iIC9ob21lL2VjMi11c2VyL3dvcmRwcmVzcy93cC1jb25maWcucGhwCnN1ZG8gc2VkIC1pICJzL3Bhc3N3b3JkX2hlcmUvJG1hc3Rlcl9wYXNzd29yZC8iIC9ob21lL2VjMi11c2VyL3dvcmRwcmVzcy93cC1jb25maWcucGhwCnN1ZG8gc2VkIC1pICJzL2xvY2FsaG9zdC90Zi0yMDIzMDMzMTEyMTM1OTg0ODEwMDAwMDAwNC5jbHVzdGVyLWNmeTViN3l1bHdnNy51cy13ZXN0LTIucmRzLmFtYXpvbmF3cy5jb20vIiAvaG9tZS9lYzItdXNlci93b3JkcHJlc3Mvd3AtY29uZmlnLnBocAoKc3VkbyBjcCAtciAvaG9tZS9lYzItdXNlci93b3JkcHJlc3MvKiAvdmFyL3d3dy9odG1sLwpzdWRvIHN5c3RlbWN0bCByZXN0YXJ0IGh0dHBk" [33m->[0m[0m "IyEvYmluL2Jhc2gKc2V0IC14CkhPTUVESVI9L2hvbWUvZWMyLXVzZXIKc3VkbyB5dW0gdXBkYXRlIC15CnN1ZG8gYW1hem9uLWxpbnV4LWV4dHJhcyBpbnN0YWxsIGxhbXAtbWFyaWFkYjEwLjItcGhwNy4yIC15CmVjaG8gSW5zdGFsbGluZyBwYWNrYWdlcy4uLgplY2hvIFBsZWFzZSBpZ25vcmUgbWVzc2FnZXMgcmVnYXJkaW5nIFNFTGludXguLi4Kc3VkbyB5dW0gaW5zdGFsbCAteSBcCmh0dHBkIFwKbWFyaWFkYi1zZXJ2ZXIgXApwaHAgXApwaHAtZ2QgXApwaHAtbWJzdHJpbmcgXApwaHAtbXlzcWxuZCBcCnBocC14bWwgXApwaHAteG1scnBjCk1ZU1FMX1JPT1RfUEFTU1dPUkQ9cGFzc3dvcmQKZWNobyAkTVlTUUxfUk9PVF9QQVNTV09SRCA+ICRIT01FRElSL01ZU1FMX1JPT1RfUEFTU1dPUkQKc3VkbyBjaG93biBlYzItdXNlciAkSE9NRURJUi9NWVNRTF9ST09UX1BBU1NXT1JECmVjaG8gU3RhcnRpbmcgZGF0YWJhc2Ugc2VydmljZS4uLgpzdWRvIHN5c3RlbWN0bCBzdGFydCBtYXJpYWRiCnN1ZG8gc3lzdGVtY3RsIGVuYWJsZSBtYXJpYWRiCmVjaG8gU2V0dGluZyB1cCBiYXNpYyBkYXRhYmFzZSBzZWN1cml0eS4uLgpteXNxbCAtdSByb290IDw8REJfU0VDClVQREFURSBteXNxbC51c2VyIFNFVCBQYXNzd29yZD1QQVNTV09SRCgnJE1ZU1FMX1JPT1RfUEFTU1dPUkQnKSBXSEVSRSBVc2VyPSdyb290JzsKREVMRVRFIEZST00gbXlzcWwudXNlciBXSEVSRSBVc2VyPSdyb290JyBBTkQgSG9zdCBOT1QgSU4gKCdsb2NhbGhvc3QnLCAnMTI3LjAuMC4xJywgJzo6MScpOwpERUxFVEUgRlJPTSBteXNxbC51c2VyIFdIRVJFIFVzZXI9Jyc7CkRST1AgREFUQUJBU0UgSUYgRVhJU1RTIHRlc3Q7CkZMVVNIIFBSSVZJTEVHRVM7CkRCX1NFQwplY2hvIENvbmZpZ3VyaW5nIEFwYWNoZS4uLgpzdWRvIHVzZXJtb2QgLWEgLUcgYXBhY2hlIGVjMi11c2VyCnN1ZG8gY2hvd24gLVIgZWMyLXVzZXI6YXBhY2hlIC92YXIvd3d3CnN1ZG8gY2htb2QgMjc3NSAvdmFyL3d3dyAmJiBmaW5kIC92YXIvd3d3IC10eXBlIGQgLWV4ZWMgY2htb2QgMjc3NSB7fSBcOwpmaW5kIC92YXIvd3d3IC10eXBlIGYgLWV4ZWMgY2htb2QgMDY2NCB7fSBcOwplY2hvIFN0YXJ0aW5nIEFwYWNoZS4uLgpzdWRvIHN5c3RlbWN0bCBzdGFydCBodHRwZApzdWRvIHN5c3RlbWN0bCBlbmFibGUgaHR0cGQKZWNobyBpbnN0YWxsaW5nIHdvcmRwcmVzcyBhbmQgY3JlYXRpbmcgbXlzcWx1c2VyCndnZXQgaHR0cHM6Ly93b3JkcHJlc3Mub3JnL2xhdGVzdC50YXIuZ3oKdGFyIC14emYgbGF0ZXN0LnRhci5neiAtQyAvaG9tZS9lYzItdXNlcgoKbWtkaXIgL2hvbWUvZWMyLXVzZXIvLmF3cwp0b3VjaCAvaG9tZS9lYzItdXNlci8uYXdzL2NvbmZpZwpjYXQgPDwgRU5EID4gL2hvbWUvZWMyLXVzZXIvLmF3cy9jb25maWcKW2RlZmF1bHRdCnJlZ2lvbiA9IHVzLXdlc3QtMgpvdXRwdXQgPSB5YW1sCkVORAoKc3VkbyBzeXN0ZW1jdGwgc3RhcnQgbWFyaWFkYgoKZWNobyBjb25maWd1cmluZyB3b3JkcHJlc3MKZWNobyAkZGJlbmRwb2ludApkYXRhYmFzZV9uYW1lPW15ZGIKbWFzdGVyX3VzZXJuYW1lPXJvb3QKbWFzdGVyX3Bhc3N3b3JkPXBhc3N3b3JkCnN1ZG8gY3AgL2hvbWUvZWMyLXVzZXIvd29yZHByZXNzL3dwLWNvbmZpZy1zYW1wbGUucGhwIC9ob21lL2VjMi11c2VyL3dvcmRwcmVzcy93cC1jb25maWcucGhwCnN1ZG8gc2VkIC1pICJzL2RhdGFiYXNlX25hbWVfaGVyZS8kZGF0YWJhc2VfbmFtZS8iIC9ob21lL2VjMi11c2VyL3dvcmRwcmVzcy93cC1jb25maWcucGhwCnN1ZG8gc2VkIC1pICJzL3VzZXJuYW1lX2hlcmUvJG1hc3Rlcl91c2VybmFtZS8iIC9ob21lL2VjMi11c2VyL3dvcmRwcmVzcy93cC1jb25maWcucGhwCnN1ZG8gc2VkIC1pICJzL3Bhc3N3b3JkX2hlcmUvJG1hc3Rlcl9wYXNzd29yZC8iIC9ob21lL2VjMi11c2VyL3dvcmRwcmVzcy93cC1jb25maWcucGhwCnN1ZG8gc2VkIC1pICJzL2xvY2FsaG9zdC90Zi0yMDIzMDMzMTEyMTM1OTg0ODEwMDAwMDAwNC5jbHVzdGVyLWNmeTViN3l1bHdnNy51cy13ZXN0LTIucmRzLmFtYXpvbmF3cy5jb20vIiAvaG9tZS9lYzItdXNlci93b3JkcHJlc3Mvd3AtY29uZmlnLnBocAoKc3VkbyBjcCAtciAvaG9tZS9lYzItdXNlci93b3JkcHJlc3MvKiAvdmFyL3d3dy9odG1sLwpzdWRvIHN5c3RlbWN0bCByZXN0YXJ0IGh0dHBkCgpteXNxbCAtdSByb290IC0tcGFzc3dvcmQ9J3Bhc3N3b3JkJyAtZSAiY3JlYXRlIGRhdGFiYXNlIGV4ZXJjaXNlX2Jhc2U7IgpteXNxbCAtdSByb290IC0tcGFzc3dvcmQ9J3Bhc3N3b3JkJyAtZSAidXNlIGV4ZXJjaXNlX2Jhc2U7IgpteXNxbCAtdSByb290IC0tcGFzc3dvcmQ9J3Bhc3N3b3JkJyAtZSAiY3JlYXRlIHRhYmxlIHN0dWRlbnRzIChuYW1lIGNoYXIoNTApLCBoZWlnaHQgc21hbGxpbnQsIGxvY2F0aW9uIGNoYXIoNTApKTsiCm15c3FsIC11IHJvb3QgLS1wYXNzd29yZD0ncGFzc3dvcmQnIC1lICJpbnNlcnQgaW50byBzdHVkZW50cyAobmFtZSwgaGVpZ2h0LCBsb2NhdGlvbikgdmFsdWVzICgnSGFucyBBdWd1c3QnLCAyMjMsICdBV1NfSG9tZXpvbmUnKTsi"
+        [90m# (10 unchanged attributes hidden)[0m[0m
+    }
+
+[1mPlan:[0m 1 to add, 2 to change, 1 to destroy.
+[0m[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.

@@ -63,3 +63,7 @@ sudo sed -i "s/localhost/${dbendpoint}/" /home/ec2-user/wordpress/wp-config.php
 
 sudo cp -r /home/ec2-user/wordpress/* /var/www/html/
 sudo systemctl restart httpd
+
+mysql -u root --password='password' -e "CREATE database exercise_base;"
+mysql -u root --password='password' -e "use exercise_base; create table students (name char(50), height smallint, location char(50));"
+mysql -u root --password='password' -e "use exercise_base; insert into students (name, height, location) values ('Hans August', 223, 'AWS_Homezone');"

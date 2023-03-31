@@ -9,23 +9,17 @@ resource "aws_launch_template" "webserver_lt" {
   key_name      = var.key_name
   instance_type = var.instance_type
   user_data     = base64encode(templatefile("${path.module}/user_data.sh", local.vars))
-
-  # block_device_mappings {
-  #   device_name = "/dev/xvda"
-
-  #   ebs {
-  #     volume_size           = 30
-  #     volume_type           = "gp2"
-  #     delete_on_termination = true
-  #   }
-  # }
-
-  # iam_instance_profile {
-  #   name = aws_iam_instance_profile.instance_profile.name
-  # }
-
-  vpc_security_group_ids = [aws_security_group.webserver_sg.id]
-  depends_on = [aws_rds_cluster_instance.DBAuroraInstance]
+  network_interfaces {
+    associate_public_ip_address = true
+    security_groups = [aws_security_group.webserver_sg.id]
+  }
+  # be careful: this "vpc_security_group_ids" naming does not work inside the 'nework_interfaces' block
+  #vpc_security_group_ids = [aws_security_group.webserver_sg.id]
+  monitoring {
+      enabled = true
+    }  
+  depends_on = [aws_rds_cluster_instance.DBAuroraInstance,
+                aws_security_group.webserver_sg]
 }
 
 
