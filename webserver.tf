@@ -15,5 +15,5 @@ resource "aws_instance" "primary_webserver_instance" {
 }
 
 output "webserver_ip" {
-  value = aws_instance.first_instance.public_ip
+  value = aws_instance.primary_webserver_instance.public_ip
 }

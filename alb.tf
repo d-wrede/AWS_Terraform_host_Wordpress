@@ -4,22 +4,16 @@
 
 module "alb" {
   source  = "terraform-aws-modules/alb/aws"
-  version = "~> 2.0"
+  version = "~> 8.0"
 
   name = "alb-wordpress"
-
+  load_balancer_type = "application"
   vpc_id = module.vpc.vpc_id
   subnets = module.vpc.public_subnets
-  #[module.vpc.public_subnets[0], module.vpc.public_subnets[1]]
-
+  # subnets = [module.vpc.public_subnets[0], module.vpc.public_subnets[1]]
 
   # Security Group
   security_groups = [aws_security_group.alb_sg.id]
-
-  # ALB Listener
-  load_balancer_type = "application"
-  https_listener_enabled = "false"
-  http_listener_enabled  = "true"
 
   # Target Group
   target_groups = [
@@ -28,8 +22,27 @@ module "alb" {
       backend_port = 80
       backend_protocol = "HTTP"
       target_type     = "instance"
+      health_check = {
+        enabled             = true
+        interval            = 120
+        path                = "/"
+        healthy_threshold   = 3
+        unhealthy_threshold = 3
+        timeout             = 20
+        protocol            = "HTTP"
+        matcher             = "200-399"
+      }
     }
   ]
+
+  # Attaching the primary webserver instance to the target group
+  # targets = {
+  #   my_target = {
+  #     target_id = aws_instance.primary_webserver_instance.id
+  #     port = 80
+  #   }
+  # }
+
 
   # ALB Listener Rule
   http_tcp_listeners = [
@@ -46,15 +59,8 @@ module "alb" {
   }
 }
 
-
-##########################################################
-#                   Target Group Attachments             #
-##########################################################
-
-resource "aws_lb_target_group_attachment" "primary_instance" {
-  target_group_arn = aws_lb_target_group.example.arn
-  target_id        = aws_instance.primary_webserver_instance.id
+resource "aws_lb_target_group_attachment" "predefined_instance" {
+  target_group_arn = module.alb.target_group_arns[0]
+  target_id        = aws_instance.primary_webserver_instance.id # Replace with your predefined instance ID
   port             = 80
 }
-
-

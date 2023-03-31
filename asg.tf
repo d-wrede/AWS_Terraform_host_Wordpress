@@ -26,17 +26,17 @@ resource "aws_autoscaling_group" "webserver_asg" {
   force_delete              = true
   target_group_arns         = [module.alb.target_group_arns[0]]
 
-  tags = [
-    {
-      key                 = "Environment"
-      value               = "test"
-      propagate_at_launch = true
-    },
-    {
-      key                 = "Project"
-      value               = "Wordpress"
-      propagate_at_launch = true
-    },
-  ]
+  tag {
+  key                 = "Environment"
+  value               = "test"
+  propagate_at_launch = true
+}
+
+tag {
+  key                 = "Project"
+  value               = "Wordpress"
+  propagate_at_launch = true
+}
+
 }
 

@@ -151,3 +151,12 @@ variable "db_instance_name" {
   description = "The name for the RDS cluster instance"
   default     = "DBAuroraInstance"
 }
+
+########################################
+# Application Load Balancer variables
+########################################
+
+variable "name_prefix" {
+  description = "The name prefix for the ALB"
+  default     = "alb_"
+}
