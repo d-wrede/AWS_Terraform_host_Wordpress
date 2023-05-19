@@ -23,7 +23,7 @@ This project provisions a scalable and highly available AWS infrastructure using
 1. Clone this repository to your local machine.
 
     ```
-    git clone git@github.com:username/repo.git
+    git clone git@github.com:d-wrede/AWS_Terraform_host_Wordpress.git
     ```
 
 2. Navigate to the project directory.
