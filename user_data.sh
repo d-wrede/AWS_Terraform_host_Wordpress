@@ -67,3 +67,14 @@ sudo systemctl restart httpd
 mysql -u root --password='password' -e "CREATE database exercise_base;"
 mysql -u root --password='password' -e "use exercise_base; create table students (name char(50), height smallint, location char(50));"
 mysql -u root --password='password' -e "use exercise_base; insert into students (name, height, location) values ('Hans August', 223, 'AWS_Homezone');"
+
+echo "=== Installing stress test tool ==="
+sudo yum update -y --security
+sudo amazon-linux-extras install epel -y
+sudo yum -y install stress
+sudo mkdir /var/www/html/stress
+cd /var/www/html/stress
+sudo wget http://aws-tc-largeobjects.s3.amazonaws.com/CUR-TF-100-TULABS-1/10-lab-autoscaling-linux/s3/ec2-stress.zip
+sudo unzip ec2-stress.zip
+echo "=== Stress test tool installed ==="
+echo 'UserData has been successfully executed. ' >> /home/ec2-user/result
